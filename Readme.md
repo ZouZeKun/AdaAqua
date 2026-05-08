@@ -1,41 +1,91 @@
-# AdaAqua: An adversarial domain adaptation neural network that adaptively transfers water-use patterns from data-rich source cities to the data-scarce target city by leveraging users’ Built-Environment and Social-Stratification indicators.
+# AdaAqua
 
-**Paper**： [Cross-City Water Usage Pattern Transferring: An Adversarial Domain Adaptation Deep Learning Method for Estimating Demand in Non-Metered Residential Users]<br>
-**Authors**： [Zekun Zou], [Tingchao Yu]<br>
+**AdaAqua** is an adversarial domain adaptation neural network designed for cross-city water-use pattern transfer. It adaptively transfers water-use patterns from data-rich source cities to a data-scarce target city by leveraging users’ **Built-Environment and Social-Stratification (BESS)** indicators.
+
+**Paper:** *Cross-City Water-use Pattern Transfer: An Adversarial Domain Adaptation Deep Learning Method for Real-time Demand Estimation in Non-metered Residential Users*  
+**Authors:** Zekun Zou, Tingchao Yu  
 
 ![Graphical Abstract](GraphicalAbstract.jpg)
 
+---
+
 ## 📜 Abstract
-> Uncertainty in water usage from the vast number of non-metered users is the major bottleneck to real-time urban water distribution analysis. Inferring water consumption of non-metered users using information from metered users offers a practical means to bypass this data limitation. However, the restricted sensor coverage in local city often fails to capture sufficiently diverse usage patterns, hindering intra-city transfer. To address this challenge, this study proposes AdaAqua, a real-time water usage estimation method for non-metered users based on cross-city water usage pattern transfer. Built upon adversarial domain-adaptive neural networks, AdaAqua transfers abundant water usage information from data-rich source cities while adapting them to data-scarce target city by conditioning on Built-Environmental and Socio-Stratification (BESS) indicators. Evaluation experiments conducted in a data-limited city using three-fold cross-validation show that AdaAqua achieves an average estimation accuracy of 1.5 m³/h and a coefficient of determination of 0.60, demonstrating its effectiveness and reliability for practical urban water management applications.<br>
+
+Limited real-time observability of urban users without high-frequency flow meters remains a major barrier to demand perception in urban water systems. Transferring water-use patterns from metered users to non-metered users provides a practical pathway for reconstructing high-resolution demand profiles under sparse sensing conditions. However, sensor coverage within a single city may not span sufficiently diverse water-use contexts, which limits the reliability of intra-city transfer.
+
+To address this challenge, this study proposes **AdaAqua**, an adversarial domain adaptation framework for cross-city water-use pattern transfer. AdaAqua estimates high-resolution demand for non-metered residential complexes by extracting transferable water-use patterns from data-rich source cities and adapting them to a data-scarce target city. Built-Environment and Social-Stratification indicators are used as contextual anchors to guide pattern matching and domain adaptation across urban contexts.
+
+Three-fold cross-validation in a data-scarce target city shows that AdaAqua achieves an average **MAE of 1.50 m³/h**, **MAPE of 29.4%**, and **R² of 0.60**, demonstrating its effectiveness for real-time demand estimation under sparse sensing conditions.
+
+---
 
 ## 🧠 Model Architecture
-![Model Architecture](ModelArchitecture.jpg)  
-*Overall architecture of the [AdaAqua] model proposed in the paper*
 
-## 🚀 Qucik Start
+![Model Architecture](ModelArchitecture.jpg)
 
-### How to Use？
+*Overall architecture of the AdaAqua model proposed in this study.*
 
-#### **Repository Contents:** This repository contains one data file and six experiment folders
+---
 
-#### **2. Dataset Folder: Stores source domain data (named ZZ) and target domain data (named ZB) separately**
-- **h5 files**：Contain data with dimensions (number of residential areas, time steps, features).
-- **CSV files**：保存了对应h5文件中小区的用水账单。
+## 🚀 Quick Start
 
-#### **3. Experiment Folders: Adjust the file paths in the "Main.ipynb" files within each folder to run the code.**
-- **Exp AblationExperiment**：Contains code for ablation studies, demonstrating the necessity of the model architecture.
-- **Exp ReplacementExperiment**：Contains code for replacement studies, demonstrating the superiority of the model architecture.
-- **Exp DomainAdversairalIntensity**：Uses a domain adversarial strength of 0.1 as an example; adjust the strength based on migration difficulty.
-- **Exp OnlyTargetDomain**：Contains experiments using only target domain data, proving the performance improvement from incorporating source domain data
-- **Exp SourceSparse**：Contains experiments with 100 source domain samples, verifying the impact of source domain data richness on model performance.
-- **Exp TargetSparse**：Contains experiments with 7 target domain samples, verifying the model's robustness under target domain data sparsity.
+### Repository Contents
 
+This repository contains the dataset and six experiment folders used in the study.
 
-### Operation Environment
-- **Python Version**： `3.12.3` 
-- **CUDA Version**： `12.100` 
-- **PyTorch Version**： `2.3.0+cu121` 
-- **Numpy**： `1.26.4`
-- **Pandas**： `2.2.2` 
-###  If you have any questions, please contact us at: [*zekunzou@zju.edu.cn*]
+### Dataset
 
+The dataset folder stores the source-domain data and target-domain data separately:
+
+- **Source domain:** `ZZ`
+- **Target domain:** `ZB`
+
+The dataset includes:
+
+- **H5 files:** Store data with dimensions of residential complexes × time steps × features.
+- **CSV files:** Store water-bill information for the residential complexes corresponding to each H5 file.
+
+### Experiments
+
+Each experiment folder contains a `Main.ipynb` file. To run the experiments, adjust the file paths in the notebook according to your local directory structure.
+
+The experiment folders include:
+
+- **Exp_AblationExperiment**  
+  Contains ablation studies used to evaluate the contribution of key components in AdaAqua.
+
+- **Exp_ReplacementExperiment**  
+  Contains replacement experiments used to compare AdaAqua with simplified model architectures.
+
+- **Exp_DomainAdversarialIntensity**  
+  Evaluates the effect of domain-adversarial strength. A domain-adversarial intensity of `0.1` is used as the representative setting in this repository.
+
+- **Exp_OnlyTargetDomain**  
+  Contains experiments using only target-domain data, which are used to evaluate the benefit of incorporating source-domain data.
+
+- **Exp_SourceSparse**  
+  Contains experiments with 100 source-domain samples, which are used to examine the influence of source-domain data richness on transfer performance.
+
+- **Exp_TargetSparse**  
+  Contains experiments with 7 target-domain samples, which are used to evaluate the robustness of AdaAqua under target-domain data scarcity.
+
+---
+
+## ⚙️ Operation Environment
+
+The code was tested under the following environment:
+
+- **Python:** `3.12.3`
+- **CUDA:** `12.1`
+- **PyTorch:** `2.3.0+cu121`
+- **NumPy:** `1.26.4`
+- **Pandas:** `2.2.2`
+
+---
+
+## 📬 Contact
+
+For questions or further information, please contact:
+
+**Zekun Zou**  
+zekunzou@zju.edu.cn
